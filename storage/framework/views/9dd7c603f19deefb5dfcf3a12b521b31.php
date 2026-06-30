@@ -2,33 +2,33 @@
     <div class="container container--wide">
       <div class="footer-top">
         <div class="footer-brand">
-          @php
+          <?php
             $footerLogo = \App\Models\SiteSetting::where('key', 'footer_logo')->first();
-          @endphp
-          @if($footerLogo && $footerLogo->image_url)
-            <span class="brand"><img src="{{ $footerLogo->image_url }}" alt="ASHAAN BY AMAN SHAN" style="max-height: 59px; width: auto;" /></span>
-          @else
+          ?>
+          <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($footerLogo && $footerLogo->image_url): ?>
+            <span class="brand"><img src="<?php echo e($footerLogo->image_url); ?>" alt="ASHAAN BY AMAN SHAN" style="max-height: 59px; width: auto;" /></span>
+          <?php else: ?>
             <span class="brand"><span class="brand-mark" aria-hidden="true"></span> ASHAAN BY AMAN SHAN</span>
-          @endif
+          <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
           <p>A visual storyteller and videographer from Calicut, focused on creating cinematic, emotion-driven visuals.</p>
           <span class="label">Calicut, Kerala</span>
         </div>
         <div>
           <h4>About</h4>
           <ul>
-            <li><a href="{{ url('/about') }}">About Me</a></li>
-            <li><a href="{{ url('/services') }}">Services &amp; Rates</a></li>
-            <li><a href="{{ url('/services#process') }}">How I Work</a></li>
-            <li><a href="{{ url('/services#faq') }}">FAQ</a></li>
+            <li><a href="<?php echo e(url('/about')); ?>">About Me</a></li>
+            <li><a href="<?php echo e(url('/services')); ?>">Services &amp; Rates</a></li>
+            <li><a href="<?php echo e(url('/services#process')); ?>">How I Work</a></li>
+            <li><a href="<?php echo e(url('/services#faq')); ?>">FAQ</a></li>
           </ul>
         </div>
         <div>
           <h4>Work</h4>
           <ul>
-            <li><a href="{{ url('/work?category=fashion') }}">Fashion</a></li>
-            <li><a href="{{ url('/work?category=street') }}">Street</a></li>
-            <li><a href="{{ url('/work?category=baby') }}">Baby</a></li>
-            <li><a href="{{ url('/work?category=wedding') }}">Wedding</a></li>
+            <li><a href="<?php echo e(url('/work?category=fashion')); ?>">Fashion</a></li>
+            <li><a href="<?php echo e(url('/work?category=street')); ?>">Street</a></li>
+            <li><a href="<?php echo e(url('/work?category=baby')); ?>">Baby</a></li>
+            <li><a href="<?php echo e(url('/work?category=wedding')); ?>">Wedding</a></li>
           </ul>
         </div>
         <div>
@@ -62,3 +62,4 @@
       </div>
     </div>
   </footer>
+<?php /**PATH D:\xampp\htdocs\Aman shah\resources\views/partials/footer.blade.php ENDPATH**/ ?>

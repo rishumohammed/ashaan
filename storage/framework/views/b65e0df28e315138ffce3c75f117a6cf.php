@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Boldonse&family=Inter+Tight:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" />
-  <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}?v={{ filemtime(public_path('assets/css/styles.css')) }}" />
+  <link rel="stylesheet" href="<?php echo e(asset('assets/css/styles.css')); ?>?v=<?php echo e(filemtime(public_path('assets/css/styles.css'))); ?>" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -16,23 +16,23 @@
   <header class="site-header">
     <div class="container container--wide">
       <nav class="nav" aria-label="Primary">
-        @php
+        <?php
           $headerLogo = \App\Models\SiteSetting::where('key', 'header_logo')->first();
-        @endphp
-        @if($headerLogo && $headerLogo->image_url)
-          <a class="brand" href="{{ url('/') }}"><img src="{{ $headerLogo->image_url }}" alt="ASHAAN BY AMAN SHAN" style="max-height: 59px; width: auto;" /></a>
-        @else
-          <a class="brand" href="{{ url('/') }}"><span class="brand-mark" aria-hidden="true"></span> ASHAAN BY AMAN SHAN</a>
-        @endif
+        ?>
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($headerLogo && $headerLogo->image_url): ?>
+          <a class="brand" href="<?php echo e(url('/')); ?>"><img src="<?php echo e($headerLogo->image_url); ?>" alt="ASHAAN BY AMAN SHAN" style="max-height: 59px; width: auto;" /></a>
+        <?php else: ?>
+          <a class="brand" href="<?php echo e(url('/')); ?>"><span class="brand-mark" aria-hidden="true"></span> ASHAAN BY AMAN SHAN</a>
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
         <div class="nav-links" role="navigation">
-          <a href="{{ url('/') }}" aria-current="page">Home</a>
-          <a href="{{ url('/work') }}">Work</a>
-          <a href="{{ url('/about') }}">About</a>
-          <a href="{{ url('/services') }}">Services</a>
-          <a href="{{ url('/contact') }}">Contact</a>
+          <a href="<?php echo e(url('/')); ?>" aria-current="page">Home</a>
+          <a href="<?php echo e(url('/work')); ?>">Work</a>
+          <a href="<?php echo e(url('/about')); ?>">About</a>
+          <a href="<?php echo e(url('/services')); ?>">Services</a>
+          <a href="<?php echo e(url('/contact')); ?>">Contact</a>
         </div>
         <div class="nav-cta-row">
-          <a href="{{ url('/contact') }}" class="btn btn--primary btn--sm">Start a project
+          <a href="<?php echo e(url('/contact')); ?>" class="btn btn--primary btn--sm">Start a project
             <svg class="arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer"><span aria-hidden="true"></span></button>
@@ -43,11 +43,11 @@
 
   <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <button class="drawer-close" aria-label="Close menu">Close</button>
-    <a href="{{ url('/') }}">Home</a>
-    <a href="{{ url('/work') }}">Work</a>
-    <a href="{{ url('/about') }}">About</a>
-    <a href="{{ url('/services') }}">Services</a>
-    <a href="{{ url('/contact') }}">Contact</a>
+    <a href="<?php echo e(url('/')); ?>">Home</a>
+    <a href="<?php echo e(url('/work')); ?>">Work</a>
+    <a href="<?php echo e(url('/about')); ?>">About</a>
+    <a href="<?php echo e(url('/services')); ?>">Services</a>
+    <a href="<?php echo e(url('/contact')); ?>">Contact</a>
   </div>
 
   <main id="main">
@@ -67,10 +67,10 @@
               Welcome to Ashaan. I am Aman Shan, a visual storyteller and videographer focused on creating cinematic, emotion-driven visuals. From raw moments to refined edits, this is where my ideas come to life.
             </p>
             <div class="hero-cta-row">
-              <a class="btn btn--primary btn--lg" href="{{ url('/work') }}">See selected work
+              <a class="btn btn--primary btn--lg" href="<?php echo e(url('/work')); ?>">See selected work
                 <svg class="arrow" width="16" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
-              <a class="btn btn--ghost btn--lg" href="{{ url('/services') }}">Services &amp; rates</a>
+              <a class="btn btn--ghost btn--lg" href="<?php echo e(url('/services')); ?>">Services &amp; rates</a>
             </div>
             <div class="hero-meta">
               <span><strong>Calicut</strong> · base</span>
@@ -79,7 +79,7 @@
             </div>
           </div>
           <div class="hero-media reveal">
-            <img src="{{ asset($settings['index_hero'] ?? 'assets/img/hero-portrait.jpg') }}" alt="ASHAAN BY AMAN SHAN Portrait" />
+            <img src="<?php echo e(asset($settings['index_hero'] ?? 'assets/img/hero-portrait.jpg')); ?>" alt="ASHAAN BY AMAN SHAN Portrait" />
           </div>
         </div>
 
@@ -119,7 +119,7 @@
         </div>
 
         <div class="work-grid">
-          @php
+          <?php
             // Row 1: 8+4, Row 2: 5+7, Row 3: 4+4+4, Row 4: 7+5, Row 5: 4+8
             $gridClasses = [
                 'work-item--xl', 'work-item--sm',
@@ -128,29 +128,29 @@
                 'work-item--lg', 'work-item--md',
                 'work-item--sm', 'work-item--xl'
             ];
-          @endphp
-          @foreach($works as $index => $work)
-          <a class="work-item {{ $gridClasses[$index % count($gridClasses)] }} reveal" href="{{ url('/work') }}">
+          ?>
+          <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $works; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $work): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+          <a class="work-item <?php echo e($gridClasses[$index % count($gridClasses)]); ?> reveal" href="<?php echo e(url('/work')); ?>">
             <div class="wm">
-              <img src="{{ $work->image_url }}" alt="{{ $work->title }}" />
-              <span class="wm-pill">{{ $work->category->name ?? 'Work' }}</span>
+              <img src="<?php echo e($work->image_url); ?>" alt="<?php echo e($work->title); ?>" />
+              <span class="wm-pill"><?php echo e($work->category->name ?? 'Work'); ?></span>
               <span class="wm-arrow" aria-hidden="true">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
               </span>
             </div>
             <div class="work-meta">
               <div>
-                <div class="wm-title">{{ $work->title }}</div>
-                <div class="wm-cap">{{ Str::limit($work->description, 50) }}</div>
+                <div class="wm-title"><?php echo e($work->title); ?></div>
+                <div class="wm-cap"><?php echo e(Str::limit($work->description, 50)); ?></div>
               </div>
-              <div class="wm-cap">No. {{ str_pad($work->id, 3, '0', STR_PAD_LEFT) }}</div>
+              <div class="wm-cap">No. <?php echo e(str_pad($work->id, 3, '0', STR_PAD_LEFT)); ?></div>
             </div>
           </a>
-          @endforeach
+          <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
         </div>
 
         <div class="center-row" style="margin-top: var(--space-7); justify-content: center;">
-          <a class="btn btn--ghost btn--lg" href="{{ url('/work') }}">All projects
+          <a class="btn btn--ghost btn--lg" href="<?php echo e(url('/work')); ?>">All projects
             <svg class="arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -190,11 +190,11 @@
           </article>
 
           <article class="cap-card cap-card--tall">
-            @php
+            <?php
                 $weddingImage = \App\Models\SiteSetting::where('key', 'homepage_wedding_image')->first();
                 $weddingImageUrl = $weddingImage && $weddingImage->image_url ? $weddingImage->image_url : asset('assets/img/cap-tall.jpg');
-            @endphp
-            <img src="{{ $weddingImageUrl }}" alt="A wide architectural interior — concrete columns and a tall window casting a long shadow on a polished concrete floor." />
+            ?>
+            <img src="<?php echo e($weddingImageUrl); ?>" alt="A wide architectural interior — concrete columns and a tall window casting a long shadow on a polished concrete floor." />
             <div class="cap-tall-meta">
               <span class="cap-num lime-text">04 / Wedding</span>
               <h3>Cinematic love stories.</h3>
@@ -234,12 +234,12 @@
               <li><b>Step 04</b><span>Post — editing, color grading, and refining</span></li>
               <li><b>Step 05</b><span>Delivery — final high-quality files and revisions</span></li>
             </ul>
-            <a class="btn btn--ghost" href="{{ url('/services') }}">See full process
+            <a class="btn btn--ghost" href="<?php echo e(url('/services')); ?>">See full process
               <svg class="arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
           <div class="split-img">
-            <img src="{{ asset($settings['index_process'] ?? 'assets/img/process-shoot.jpg') }}" alt="A working set — a photographer reviews tethered captures on a calibrated monitor." />
+            <img src="<?php echo e(asset($settings['index_process'] ?? 'assets/img/process-shoot.jpg')); ?>" alt="A working set — a photographer reviews tethered captures on a calibrated monitor." />
             <span class="ft-corner">Behind the scenes</span>
           </div>
         </div>
@@ -255,18 +255,19 @@
           Whether you're planning a wedding, a brand campaign, or a personal shoot, I am always excited to hear about new ideas. Let's discuss how we can bring your vision to life.
         </p>
         <div class="cta-row">
-          <a class="btn btn--dark btn--lg" href="{{ url('/contact') }}">Let's talk
+          <a class="btn btn--dark btn--lg" href="<?php echo e(url('/contact')); ?>">Let's talk
             <svg class="arrow" width="16" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
-          <a class="btn btn--ghost btn--lg" href="{{ url('/services') }}">View services</a>
+          <a class="btn btn--ghost btn--lg" href="<?php echo e(url('/services')); ?>">View services</a>
         </div>
       </div>
     </section>
 
   </main>
 
-  @include('partials.footer')
+  <?php echo $__env->make('partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
   <script src="assets/js/site.js" defer></script>
 </body>
 </html>
+<?php /**PATH D:\xampp\htdocs\Aman shah\resources\views/index.blade.php ENDPATH**/ ?>

@@ -31,10 +31,10 @@
   --paper-tile:     #F4F4F0;          /* reverse-tile background */
   --paper-tile-2:   #E5E5DE;          /* alt reverse tile */
 
-  --lime:           #FF6600;          /* signature accent — orange */
+  --lime:           #FF6B00;          /* signature accent — orange */
   --lime-soft:      #FF8533;          /* lighter variant */
-  --lime-deep:      #E65C00;          /* hover / pressed */
-  --lime-glow:      rgba(255, 102, 0, 0.20);
+  --lime-deep:      #CC5500;          /* hover / pressed */
+  --lime-glow:      rgba(255, 107, 0, 0.20);
 
   --cobalt:         #1A2EFF;          /* tiny secondary — used once on prints CTA hover only */
 

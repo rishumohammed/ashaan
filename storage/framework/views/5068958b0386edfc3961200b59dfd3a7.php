@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Boldonse&family=Inter+Tight:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" />
-  <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}?v={{ filemtime(public_path('assets/css/styles.css')) }}" />
+  <link rel="stylesheet" href="<?php echo e(asset('assets/css/styles.css')); ?>?v=<?php echo e(filemtime(public_path('assets/css/styles.css'))); ?>" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -16,20 +16,20 @@
   <header class="site-header">
     <div class="container container--wide">
       <nav class="nav" aria-label="Primary">
-        @php
+        <?php
           $headerLogo = \App\Models\SiteSetting::where('key', 'header_logo')->first();
-        @endphp
-        @if($headerLogo && $headerLogo->image_url)
-          <a class="brand" href="{{ url('/') }}"><img src="{{ $headerLogo->image_url }}" alt="ASHAAN BY AMAN SHAN" style="max-height: 59px; width: auto;" /></a>
-        @else
-          <a class="brand" href="{{ url('/') }}"><span class="brand-mark" aria-hidden="true"></span> ASHAAN BY AMAN SHAN</a>
-        @endif
+        ?>
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($headerLogo && $headerLogo->image_url): ?>
+          <a class="brand" href="<?php echo e(url('/')); ?>"><img src="<?php echo e($headerLogo->image_url); ?>" alt="ASHAAN BY AMAN SHAN" style="max-height: 59px; width: auto;" /></a>
+        <?php else: ?>
+          <a class="brand" href="<?php echo e(url('/')); ?>"><span class="brand-mark" aria-hidden="true"></span> ASHAAN BY AMAN SHAN</a>
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
         <div class="nav-links" role="navigation">
-          <a href="{{ url('/') }}">Home</a>
-          <a href="{{ url('/work') }}">Work</a>
-          <a href="{{ url('/about') }}">About</a>
-          <a href="{{ url('/services') }}">Services</a>
-          <a href="{{ url('/contact') }}" aria-current="page">Contact</a>
+          <a href="<?php echo e(url('/')); ?>">Home</a>
+          <a href="<?php echo e(url('/work')); ?>">Work</a>
+          <a href="<?php echo e(url('/about')); ?>">About</a>
+          <a href="<?php echo e(url('/services')); ?>">Services</a>
+          <a href="<?php echo e(url('/contact')); ?>" aria-current="page">Contact</a>
         </div>
         <div class="nav-cta-row">
           <a href="#intake" class="btn btn--primary btn--sm">Start a project
@@ -43,11 +43,11 @@
 
   <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <button class="drawer-close" aria-label="Close menu">Close</button>
-    <a href="{{ url('/') }}">Home</a>
-    <a href="{{ url('/work') }}">Work</a>
-    <a href="{{ url('/about') }}">About</a>
-    <a href="{{ url('/services') }}">Services</a>
-    <a href="{{ url('/contact') }}">Contact</a>
+    <a href="<?php echo e(url('/')); ?>">Home</a>
+    <a href="<?php echo e(url('/work')); ?>">Work</a>
+    <a href="<?php echo e(url('/about')); ?>">About</a>
+    <a href="<?php echo e(url('/services')); ?>">Services</a>
+    <a href="<?php echo e(url('/contact')); ?>">Contact</a>
   </div>
 
   <main id="main">
@@ -75,7 +75,7 @@
             </div>
           </div>
           <div class="hero-media">
-            <img src="{{ asset($settings['contact_hero'] ?? 'assets/img/contact-hero.jpg') }}" alt="ASHAAN BY AMAN SHAN working" />
+            <img src="<?php echo e(asset($settings['contact_hero'] ?? 'assets/img/contact-hero.jpg')); ?>" alt="ASHAAN BY AMAN SHAN working" />
             <div class="floating-tag ft-top">
               <span class="pill">Contact</span>
               Aman Shan, Founder of Ashaan
@@ -189,8 +189,9 @@
 
   </main>
 
-  @include('partials.footer')
+  <?php echo $__env->make('partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
   <script src="assets/js/site.js" defer></script>
 </body>
 </html>
+<?php /**PATH D:\xampp\htdocs\Aman shah\resources\views/contact.blade.php ENDPATH**/ ?>
