@@ -10,7 +10,11 @@ nginx:
     /:
       try_files: $uri $uri/ /index.php?$query_string
 commands:
-  - COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+  - export COMPOSER_MEMORY_LIMIT=-1
+  - export COMPOSER_MAX_PARALLEL_DOWNLOADS=1
+  - composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-scripts
+  - php artisan package:discover --ansi
+  - php artisan filament:upgrade
   - if [ ! -f .env ]; then cp .env.example .env; fi
   - sed -i "s/DB_DATABASE=.*/DB_DATABASE=$DB_DATABASE/" .env
   - sed -i "s/DB_USERNAME=.*/DB_USERNAME=$DB_USERNAME/" .env
