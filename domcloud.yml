@@ -16,4 +16,5 @@ commands:
   - sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=$DB_PASSWORD/" .env
   - php artisan key:generate --force
   - php artisan migrate --force
-  - php artisan storage:link
+  - rm -rf public/storage
+  - php artisan storage:link --force
