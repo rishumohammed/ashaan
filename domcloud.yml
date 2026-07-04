@@ -1,0 +1,20 @@
+source: https://github.com/rishumohammed/ashaan.git
+features:
+  - php 8.2
+  - mysql
+  - ssl
+root: public
+nginx:
+  fastcgi: on
+  locations:
+    /:
+      try_files: $uri $uri/ /index.php?$query_string
+commands:
+  - composer install --no-interaction --prefer-dist --optimize-autoloader
+  - if [ ! -f .env ]; then cp .env.example .env; fi
+  - sed -i "s/DB_DATABASE=.*/DB_DATABASE=$DB_DATABASE/" .env
+  - sed -i "s/DB_USERNAME=.*/DB_USERNAME=$DB_USERNAME/" .env
+  - sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=$DB_PASSWORD/" .env
+  - php artisan key:generate --force
+  - php artisan migrate --force
+  - php artisan storage:link
