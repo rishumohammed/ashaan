@@ -3,8 +3,8 @@ features:
   - php 8.2
   - mysql
   - ssl
-root: public_html/public
 nginx:
+  root: public_html/public
   fastcgi: on
   locations:
     /:
