@@ -1,6 +1,7 @@
 source: https://github.com/rishumohammed/ashaan.git
 features:
   - php 8.2
+  - mysql
   - ssl
 nginx:
   root: public_html/public
@@ -10,9 +11,14 @@ nginx:
       try_files: $uri $uri/ /index.php$is_args$args
 commands:
   - if [ ! -f .env ]; then cp .env.example .env; fi
-  - php artisan key:generate --force
+  - sed -i "s|^DB_CONNECTION=.*|DB_CONNECTION=mysql|" .env
+  - if [ ! -z "$DB_DATABASE" ]; then sed -i '/^DB_DATABASE=/d' .env; echo "DB_DATABASE=$DB_DATABASE" >> .env; fi
+  - if [ ! -z "$DB_USERNAME" ]; then sed -i '/^DB_USERNAME=/d' .env; echo "DB_USERNAME=$DB_USERNAME" >> .env; fi
+  - if [ ! -z "$DB_PASSWORD" ]; then sed -i '/^DB_PASSWORD=/d' .env; echo "DB_PASSWORD=$DB_PASSWORD" >> .env; fi
   - sed -i "s|^APP_URL=.*|APP_URL=https://${DOMAIN}|" .env
+  - php artisan key:generate --force
+  - php artisan migrate --force
   - chmod -R 775 storage bootstrap/cache
   - rm -rf public/storage
-  - php artisan storage:link --force || true
-  - php artisan optimize:clear || true
+  - php artisan storage:link --force
+  - php artisan optimize:clear
