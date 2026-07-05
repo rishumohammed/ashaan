@@ -1,0 +1,12 @@
+source: https://github.com/rishumohammed/ashaan.git
+features:
+  - php 8.2
+  - ssl
+nginx:
+  root: public_html/public
+  fastcgi: on
+  locations:
+    - match: /
+      try_files: $uri $uri/ /index.php$is_args$args
+commands:
+  - php artisan optimize:clear
