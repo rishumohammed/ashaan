@@ -7,6 +7,8 @@ nginx:
   root: public_html/public
   fastcgi: on
   locations:
+    - match: /storage/
+      alias: /home/aman-shan/public_html/storage/app/public/
     - match: /
       try_files: $uri $uri/ /index.php$is_args$args
 commands:
