@@ -12,14 +12,6 @@ nginx:
 commands:
   - if [ ! -f .env ]; then cp .env.example .env; fi
   - sed -i "s|^DB_CONNECTION=.*|DB_CONNECTION=mysql|" .env
-  - sed -i '/^DB_DATABASE/d' .env
-  - sed -i '/^DB_USERNAME/d' .env
-  - sed -i '/^DB_PASSWORD/d' .env
-  - export MY_USER=$(whoami | tr '-' '_')
-  - export MY_PASS=$(grep -m 1 password ~/.my.cnf | cut -d'=' -f2 | tr -d " '\"")
-  - echo "DB_DATABASE=$MY_USER" >> .env
-  - echo "DB_USERNAME=$MY_USER" >> .env
-  - echo "DB_PASSWORD=$MY_PASS" >> .env
   - sed -i "s|^APP_URL=.*|APP_URL=https://${DOMAIN}|" .env
   - php artisan key:generate --force
   - php artisan migrate --force
