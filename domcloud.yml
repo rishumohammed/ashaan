@@ -8,5 +8,3 @@ nginx:
   locations:
     - match: /
       try_files: $uri $uri/ /index.php$is_args$args
-commands:
-  - php artisan optimize:clear
