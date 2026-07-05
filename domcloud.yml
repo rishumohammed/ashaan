@@ -1,16 +1,20 @@
 source: https://github.com/rishumohammed/ashaan.git
 features:
   - php 8.2
+  - mysql
   - ssl
 nginx:
   root: public_html/public
   fastcgi: on
   locations:
     - match: /
-      try_files: $uri $uri/ /index.php?$query_string
+      try_files: $uri $uri/ /index.php$is_args$args
 commands:
   - if [ ! -f .env ]; then cp .env.example .env; fi
-  - echo "DB_CONNECTION=sqlite" >> .env
+  - sed -i "s|^DB_CONNECTION=.*|DB_CONNECTION=mysql|" .env
+  - echo "DB_DATABASE=$DB_DATABASE" >> .env
+  - echo "DB_USERNAME=$DB_USERNAME" >> .env
+  - echo "DB_PASSWORD=$DB_PASSWORD" >> .env
   - sed -i "s|^APP_URL=.*|APP_URL=https://${DOMAIN}|" .env
   - php artisan key:generate --force
   - php artisan migrate --force
